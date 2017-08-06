@@ -18,27 +18,27 @@ import java.util.ResourceBundle;
 import static window.main.Main.APPLICATION_NAME;
 
 public class MainMenu implements Initializable {
-    @FXML
-    private Label welcomeTextLabel;
-    @FXML
-    private Button openLoadMenuButton;
-    @FXML
-    private Button openGameMenuButton;
-    @FXML
-    private Button openSettingsMenuButton;
+	@FXML
+	private Label welcomeTextLabel;
+	@FXML
+	private Button openLoadMenuButton;
+	@FXML
+	private Button openGameMenuButton;
+	@FXML
+	private Button openSettingsMenuButton;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        welcomeTextLabel.setText("Welcome to " + APPLICATION_NAME);
-    }
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		welcomeTextLabel.setText("Welcome to " + APPLICATION_NAME);
+	}
 
-    public void openSettings(ActionEvent event) throws IOException {
+	public void openSettings(ActionEvent event) throws IOException {
 
-        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        Parent root = FXMLLoader.load(getClass().getResource("../setting/setting_menu.fxml"));
-        primaryStage.setTitle(APPLICATION_NAME + "- Settings");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
+		Parent root = FXMLLoader.load(getClass().getResource("../setting/setting_menu.fxml"));
+		primaryStage.setTitle(APPLICATION_NAME + "- Settings");
+		primaryStage.setScene(new Scene(root));
+		primaryStage.show();
+	}
 }

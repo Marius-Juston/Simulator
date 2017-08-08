@@ -1,55 +1,35 @@
 package window.misc;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 
-import java.io.IOException;
-
-import static window.main.Main.APPLICATION_NAME;
+import java.util.Optional;
 
 public class ConfirmBox {
-	private static final Stage stage;
-	private static byte choice = 2;
+	private static final Alert confirmBox;
+
+	private static final ButtonType yesButton = new ButtonType("Yes");
+	private static final ButtonType noButton = new ButtonType("No");
+	private static final ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
 	static {
-		stage = new Stage();
-		stage.initModality(Modality.APPLICATION_MODAL);
-		Parent root;
-		try {
-			root = FXMLLoader.load(ConfirmBox.class.getResource("../misc/confirm_box.fxml"));
+		confirmBox = new Alert(Alert.AlertType.CONFIRMATION);
+		confirmBox.setTitle("Confirmation Alert");
 
-			stage.setTitle(APPLICATION_NAME + "- Confirm Box");
-			stage.setScene(new Scene(root));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		confirmBox.getButtonTypes().setAll(yesButton, noButton, cancelButton);
 	}
 
 	public static byte confirm(String message) {
-		((Label) stage.getScene().getRoot().getChildrenUnmodifiable().get(0)).setText(message);
-		stage.showAndWait();
-		return choice;
-	}
+		confirmBox.setContentText(message);
 
-	public void choose(ActionEvent actionEvent) {
-		switch (((Button) actionEvent.getSource()).getText()) {
-			case "Yes":
-				choice = 0;
-				break;
-			case "No":
-				choice = 1;
-				break;
-			case "Cancel":
-				choice = 2;
-				break;
-		}
+		Optional<ButtonType> result = confirmBox.showAndWait();
 
-		stage.close();
+		if (result.isPresent())
+			if (result.get() == yesButton)
+				return 0;
+			else if (result.get() == noButton)
+				return 1;
+		return 2;
 	}
 }

@@ -16,7 +16,7 @@ public class ConfirmBox {
 	static {
 		confirmBox = new Alert(Alert.AlertType.CONFIRMATION);
 		confirmBox.setTitle("Confirmation Alert");
-
+		confirmBox.setHeaderText(null);
 		confirmBox.getButtonTypes().setAll(yesButton, noButton, cancelButton);
 	}
 
